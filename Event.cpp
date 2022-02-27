@@ -1,16 +1,20 @@
 #include "Event.h"
 
-Event::Event(std::string newType, int newTransactionTime) : 
+Event::Event(std::string newType, int newArrivalTime) : 
     type(newType),
-    transactionTime(newTransactionTime)
-{}
+    arrivalTime(newArrivalTime) {}
+
+Event::Event(std::string newType, int newArrivalTime, int newTransactionTime) : 
+    type(newType), 
+    arrivalTime(newArrivalTime),
+    transactionTime(newTransactionTime) {}
 
 std::string Event::getType() const {
     return type;
 }
 
 int Event::getArrivalTime() const {
-    return 1;
+    return arrivalTime;
 }
 
 int Event::getTransactionTime() const {

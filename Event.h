@@ -1,7 +1,6 @@
 #include <iostream>
 
-class Event
-{
+class Event {
 private:
     std::string type;
     int arrivalTime;

@@ -6,7 +6,7 @@
 #include "Node.h"
 
 template<class ItemType>
-class SL_PriorityQueue : public PriorityQueueInterface<ItemType>{
+class SL_PriorityQueue : public QueueInterface<ItemType>{
     private:
         std::unique_ptr<LinkedSortedList<ItemType>> slistPtr;
     public:
