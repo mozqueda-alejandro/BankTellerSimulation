@@ -1,6 +1,7 @@
 #ifndef ARRAY_QUEUE
 #define ARRAY_QUEUE
 #include "QueueInterface.h"
+#include "Event.h"
 
 template<class ItemType>
 class ArrayQueue : public QueueInterface<ItemType> {
