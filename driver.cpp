@@ -5,23 +5,73 @@
 #include "PriorityQueue.h"
 
 template<class ItemType>
-void loadData(SL_PriorityQueue<ItemType> priorityQueue) {
+void loadData(const std::string fileName, PriorityQueue<ItemType>& priorityQueue) {
+    int arrivalTime, transactionTime;
+    std::ifstream infile;
+    infile.open(fileName);
+    while (infile >> arrivalTime >> transactionTime) {
+        Event newArrivalEvent("A", arrivalTime, transactionTime);
+        priorityQueue.enqueue(newArrivalEvent);
+    }
+    infile.close();
+}
+
+template<class ItemType>
+void processArrival(bool tellerFree, PriorityQueue<ItemType>& priorityQueue, ArrayQueue<ItemType>& bankQueue) {
+    // // Remove this event from the event list
+    // eventListPQueue.remove()
+    // customer = customer referenced in arrivalEvent
+    // if (bankQueue.isEmpty() && tellerAvailable) {
+    //     departureTime = currentTime + transaction time in arrivalEvent
+    //     newDepartureEvent = a new departure event with departureTime
+    //     eventListPQueue.add(newDepartureEvent)
+    //     tellerAvailable = false
+    // }
+    // else
+    // bankQueue.enqueue(customer)
 
 }
 
 template<class ItemType>
-void processArrival(bool tellerFree, SL_PriorityQueue<ItemType> priorityQueue, ArrayQueue<ItemType> bankQueue) {
-
-}
-
-template<class ItemType>
-void processDeparture(bool tellerFree, SL_PriorityQueue<ItemType> priorityQueue, ArrayQueue<ItemType> bankQueue) {
+void processDeparture(bool tellerFree, PriorityQueue<ItemType>& priorityQueue, ArrayQueue<ItemType>& bankQueue) {
+    // Processes a departure event .
     
+    // //Event currentEvent = priorityQueue.peekFront();
+    // // Remove this event from the event list  
+    // priorityQueue.remove();
+    // if (!bankQueue.isEmpty()) { 
+    // // Customer at front of line begins transaction  
+    //     customer = bankQueue.peek() 
+    //     bankQueue.dequeue() 
+    //     departureTime = currentTime + transaction time in customer
+    //     newDepartureEvent =  a new departure event with departureTime 
+    //     eventListPQueue.add(newDepartureEvent) 
+    // } 
+    // else {
+    //     tellerAvailable  = true
+    // }
 }
 
 int main() {
-    
+    ArrayQueue<Event> bankQueue;
+    PriorityQueue<Event> eventList;
+    bool tellerAvailable = true;
+
+    std::string fileName;
+    std::cin >> fileName;
+    loadData(fileName, eventList);
+
+    //while (!eventList.isEmpty()) 
+    // {
+    //     newEvent = eventListPQueue.peek()
+    //     // Get current time
+    //     currentTime = time of newEvent
+    //     if (newEvent == type arrivalEvent)
+    //     processArrival(newEvent, eventListPQueue, bankQueue)
+    //     else
+    //     processDeparture(newEvent, eventListPQueue, bankQueue)
+    // }
 
 
     return 0;
-}
+};

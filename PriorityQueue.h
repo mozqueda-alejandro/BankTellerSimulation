@@ -1,25 +1,24 @@
 #ifndef PRIORITY_QUEUE_
 #define PRIORITY_QUEUE_
 
-
 #include "QueueInterface.h"
-#include "Node.h"
 
 template<class ItemType>
-class SL_PriorityQueue : public QueueInterface<ItemType>{
+class PriorityQueue : public QueueInterface<ItemType>{
     private:
-        std::unique_ptr<LinkedSortedList<ItemType>> slistPtr;
+        //std::unique_ptr<LinkedSortedList<ItemType>> slistPtr;
     public:
-        SL_PriorityQueue();
-        SL_PriorityQueue(const SL_PriorityQueue& pq);
-        ~SL_PriorityQueue();
+        PriorityQueue();
+        PriorityQueue(const PriorityQueue& pq);
+        ~PriorityQueue();
 
         bool isEmpty() const;
         bool enqueue(const ItemType& newEntry);
         bool dequeue();
 
-/** @throw  PrecondViolatedExcept if priority queue is empty. */
-ItemType peekFront() const throw(PrecondViolatedExcept);
-}; // end SL_PriorityQueue
+        /** @throw  PrecondViolatedExcept if priority queue is empty. */
+        ItemType peekFront() const;// throw(PrecondViolatedExcept);
+};
+
 #include "PriorityQueue.cpp"
 #endif
