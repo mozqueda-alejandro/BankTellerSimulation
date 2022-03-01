@@ -1,18 +1,18 @@
 #include "PriorityQueue.h"
 
 template<class ItemType>
-ArrayQueue<ItemType>::ArrayQueue() : 
+PriorityQueue<ItemType>::PriorityQueue() : 
     front(0),
     back(DEFAULT_CAPACITY - 1),
     numItems(0) {}
 
 template<class ItemType>
-bool ArrayQueue<ItemType>::isEmpty() const {
+bool PriorityQueue<ItemType>::isEmpty() const {
    return numItems == 0;
 }
 
 template<class ItemType>
-bool ArrayQueue<ItemType>::enqueue(const ItemType& newEntry) {
+bool PriorityQueue<ItemType>::enqueue(const ItemType& newEntry) {
     bool canEnqueue = false;
     if (numItems < DEFAULT_CAPACITY) {
         // Queue has space to enqueue item
@@ -25,7 +25,7 @@ bool ArrayQueue<ItemType>::enqueue(const ItemType& newEntry) {
 }
 
 template<class ItemType>
-bool ArrayQueue<ItemType>::dequeue() {
+bool PriorityQueue<ItemType>::dequeue() {
     bool canDequeue = false;
     if (!isEmpty()) {
         front = (front + 1) % DEFAULT_CAPACITY;
@@ -36,7 +36,7 @@ bool ArrayQueue<ItemType>::dequeue() {
 }
 
 template<class ItemType>
-ItemType ArrayQueue<ItemType>::peekFront() const {// throw(exception) {
+ItemType PriorityQueue<ItemType>::peekFront() const {// throw(exception) {
     if (isEmpty()) {
         throw ("Queue has no items");
     } else {

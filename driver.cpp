@@ -3,10 +3,14 @@
 #include <fstream>
 #include "ArrayQueue.h"
 #include "PriorityQueue.h"
+#include "Event.h"
 
 template<class ItemType>
-void loadData(const std::string fileName, PriorityQueue<ItemType>& priorityQueue) {
+void loadData(PriorityQueue<ItemType>& priorityQueue) {
     int arrivalTime, transactionTime;
+    std::string fileName;
+    std::cin >> fileName;
+
     std::ifstream infile;
     infile.open(fileName);
     while (infile >> arrivalTime >> transactionTime) {
@@ -53,16 +57,11 @@ void processDeparture(bool tellerFree, PriorityQueue<ItemType>& priorityQueue, A
 }
 
 int main() {
-    ArrayQueue<Event> bankQueue;
+    //ArrayQueue<Event> bankQueue;
     PriorityQueue<Event> eventList;
     bool tellerAvailable = true;
 
-    std::string fileName;
-    std::cin >> fileName;
-    loadData(fileName, eventList);
-
-    //while (!eventList.isEmpty()) 
-    // {
+    // while (!eventList.isEmpty()) {
     //     newEvent = eventListPQueue.peek()
     //     // Get current time
     //     currentTime = time of newEvent

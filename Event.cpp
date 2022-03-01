@@ -15,19 +15,24 @@ bool Event::operator>(const Event& rhs) {
 }
 
 std::ostream& Event::operator<<(std::ostream& stream) {
-    stream << "|" << type << "|";
-
-    for (int i = std::to_string(arrivalTime).length(); i < 3; i++) {
-        stream << "0";
+    // stream << "|" << type << "|";
+    // for (int i = std::to_string(arrivalTime).length(); i < 3; i++) {
+    //     stream << "0";
+    // }
+    // stream << arrivalTime;
+    // stream << "|";
+    // for (int i = std::to_string(transactionTime).length(); i < 2; i++) {
+    //     stream << "0";
+    // }
+    // stream << transactionTime;
+    // stream << "|";
+    stream << "Processing a";
+    if (type == "A") {
+        stream << "n arrival";
+    } else if (type == "D") {
+        stream << " departure";
     }
-    stream << arrivalTime;
-    stream << "|";
-
-    for (int i = std::to_string(transactionTime).length(); i < 2; i++) {
-        stream << "0";
-    }
-    stream << transactionTime;
-    stream << "|";
+    stream << " event at time: ";// << time;
     return stream;
 }
 

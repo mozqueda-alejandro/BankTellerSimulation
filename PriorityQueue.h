@@ -6,11 +6,15 @@
 template<class ItemType>
 class PriorityQueue : public QueueInterface<ItemType>{
     private:
-        //std::unique_ptr<LinkedSortedList<ItemType>> slistPtr;
+        static const int DEFAULT_CAPACITY = 50;
+        ItemType items[DEFAULT_CAPACITY];
+        int front; // Index to front of queue
+        int back; // Index to back of queue
+        int numItems; // Number of items in queue
     public:
         PriorityQueue();
         PriorityQueue(const PriorityQueue& pq);
-        ~PriorityQueue();
+        // ~PriorityQueue();
 
         bool isEmpty() const;
         bool enqueue(const ItemType& newEntry);

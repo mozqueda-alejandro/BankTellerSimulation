@@ -1,3 +1,6 @@
+#ifndef EVENT_H
+#define EVENT_H
+
 #include <iostream>
 
 class Event {
@@ -6,7 +9,7 @@ private:
     int arrivalTime;
     int transactionTime;
 public:
-    Event();
+    Event() = default;
     Event(std::string type, int arrivalTime);
     Event(std::string type, int arrivalTime, int transactionTime);
 
@@ -16,3 +19,5 @@ public:
     int getArrivalTime() const;
     int getTransactionTime() const;
 };
+
+#endif
