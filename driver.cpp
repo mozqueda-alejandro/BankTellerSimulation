@@ -8,8 +8,12 @@
 template<class ItemType>
 void loadData(PriorityQueue<ItemType>& priorityQueue) {
     int arrivalTime, transactionTime;
+    std::cout << "Enter bank simulation text file: ";
     std::string fileName;
     std::cin >> fileName;
+
+    // Quick check
+    if (fileName == "q") fileName = "test2.txt";
 
     std::ifstream infile;
     infile.open(fileName);

@@ -15,24 +15,32 @@ bool Event::operator>(const Event& rhs) {
 }
 
 std::ostream& operator<<(std::ostream& stream, const Event& event) {
-    // stream << "|" << type << "|";
-    // for (int i = std::to_string(arrivalTime).length(); i < 3; i++) {
-    //     stream << "0";
-    // }
-    // stream << arrivalTime;
-    // stream << "|";
-    // for (int i = std::to_string(transactionTime).length(); i < 2; i++) {
-    //     stream << "0";
-    // }
-    // stream << transactionTime;
-    // stream << "|";
-    stream << "Processing a";
-    if (event.type == "A") {
-        stream << "n arrival";
-    } else if (event.type == "D") {
-        stream << " departure";
+    int typeLen = (event.type).length();
+    int arrivalLen = 3, transactionLen = 2;
+    for (int i = 0; i < typeLen + arrivalLen + transactionLen + 4; i++) {
+        stream << "_";
     }
-    stream << " event at time: ";// << time;
+    stream << "\n|" << event.type << "|";
+    for (int i = std::to_string(event.arrivalTime).length(); i < arrivalLen; i++) {
+        stream << "0";
+    }
+    stream << event.arrivalTime;
+    stream << "|";
+    for (int i = std::to_string(event.transactionTime).length(); i < transactionLen; i++) {
+        stream << "0";
+    }
+    stream << event.transactionTime;
+    stream << "|\n";
+    for (int i = 0; i <= arrivalLen + transactionLen + 4; i++) {
+        stream << "\u203E";
+    }
+    // stream << "Processing a";
+    // if (event.type == "A") {
+    //     stream << "n arrival";
+    // } else if (event.type == "D") {
+    //     stream << " departure";
+    // }
+    // stream << " event at time: ";// << time;
     return stream;
 }
 
