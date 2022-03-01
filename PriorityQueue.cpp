@@ -15,7 +15,12 @@ template<class ItemType>
 bool PriorityQueue<ItemType>::enqueue(const ItemType& newEntry) {
     bool canEnqueue = false;
         if (numItems < DEFAULT_CAPACITY) {          
+            
             for (int i = 0; i < DEFAULT_CAPACITY - 1; i++) {
+                // if (items[front].getArrivalTime() + items[front].getTransactionTime() < newEntry.getTransactionTime()) {
+                //     break;
+                // }
+                // More validations needed
                 int index = (back - i + DEFAULT_CAPACITY) % DEFAULT_CAPACITY;
                 if (items[index] >= newEntry) {
                     back = (back + 1) % DEFAULT_CAPACITY;
