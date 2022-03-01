@@ -1,5 +1,10 @@
 #include "Event.h"
 
+Event::Event() : 
+    type(""),
+    arrivalTime(0),
+    transactionTime(0) {}
+
 Event::Event(std::string newType, int newArrivalTime) : 
     type(newType),
     arrivalTime(newArrivalTime) {}
@@ -9,14 +14,24 @@ Event::Event(std::string newType, int newArrivalTime, int newTransactionTime) :
     arrivalTime(newArrivalTime),
     transactionTime(newTransactionTime) {}
 
+// // Greater priority object has smaller transactionTime
+// bool Event::operator>(const Event& rhs) {
+//     return transactionTime < rhs.transactionTime;
+// }
+
 // Greater priority object has smaller transactionTime
-bool Event::operator>(const Event& rhs) {
-    return transactionTime < rhs.transactionTime;
+bool Event::operator>=(const Event& rhs) {
+    return transactionTime <= rhs.transactionTime;
+}
+
+// Lesser priority object has larger transactionTime
+bool Event::operator<(const Event& rhs) {
+    return transactionTime > rhs.transactionTime;
 }
 
 std::ostream& operator<<(std::ostream& stream, const Event& event) {
     int typeLen = (event.type).length();
-    int arrivalLen = 3, transactionLen = 2;
+    int arrivalLen = 4, transactionLen = 3;
     for (int i = 0; i < typeLen + arrivalLen + transactionLen + 4; i++) {
         stream << "_";
     }
@@ -31,7 +46,7 @@ std::ostream& operator<<(std::ostream& stream, const Event& event) {
     }
     stream << event.transactionTime;
     stream << "|\n";
-    for (int i = 0; i <= arrivalLen + transactionLen + 4; i++) {
+    for (int i = 0; i < typeLen + arrivalLen + transactionLen + 4; i++) {
         stream << "\u203E";
     }
     // stream << "Processing a";
