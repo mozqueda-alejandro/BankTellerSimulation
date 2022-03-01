@@ -14,7 +14,7 @@ public:
     Event(std::string type, int arrivalTime, int transactionTime);
 
     bool operator>(const Event& rhs);
-    std::ostream& operator<<(std::ostream& stream);
+    friend std::ostream& operator<<(std::ostream& stream, const Event& event);
     std::string getType() const;
     int getArrivalTime() const;
     int getTransactionTime() const;

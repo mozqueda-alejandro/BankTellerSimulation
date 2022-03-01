@@ -14,7 +14,7 @@ bool Event::operator>(const Event& rhs) {
     return transactionTime < rhs.transactionTime;
 }
 
-std::ostream& Event::operator<<(std::ostream& stream) {
+std::ostream& operator<<(std::ostream& stream, const Event& event) {
     // stream << "|" << type << "|";
     // for (int i = std::to_string(arrivalTime).length(); i < 3; i++) {
     //     stream << "0";
@@ -27,9 +27,9 @@ std::ostream& Event::operator<<(std::ostream& stream) {
     // stream << transactionTime;
     // stream << "|";
     stream << "Processing a";
-    if (type == "A") {
+    if (event.type == "A") {
         stream << "n arrival";
-    } else if (type == "D") {
+    } else if (event.type == "D") {
         stream << " departure";
     }
     stream << " event at time: ";// << time;

@@ -57,9 +57,15 @@ void processDeparture(bool tellerFree, PriorityQueue<ItemType>& priorityQueue, A
 }
 
 int main() {
-    //ArrayQueue<Event> bankQueue;
+    ArrayQueue<Event> bankQueue;
     PriorityQueue<Event> eventList;
     bool tellerAvailable = true;
+    loadData(eventList);
+
+    while (!eventList.isEmpty()) {
+        std::cout << eventList.peekFront() << std::endl;
+        eventList.dequeue();
+    }
 
     // while (!eventList.isEmpty()) {
     //     newEvent = eventListPQueue.peek()
