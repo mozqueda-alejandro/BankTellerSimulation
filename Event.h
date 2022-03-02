@@ -10,10 +10,9 @@ private:
     int transactionTime;
 public:
     Event();
-    Event(std::string type, int arrivalTime);
     Event(std::string type, int arrivalTime, int transactionTime);
 
-    bool operator>=(const Event& rhs);
+    bool operator>(const Event& rhs);
     bool operator<(const Event& rhs);
     friend std::ostream& operator<<(std::ostream& stream, const Event& event);
     std::string getType() const;

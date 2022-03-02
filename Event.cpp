@@ -5,22 +5,30 @@ Event::Event() :
     arrivalTime(0),
     transactionTime(0) {}
 
-Event::Event(std::string newType, int newArrivalTime) : 
-    type(newType),
-    arrivalTime(newArrivalTime) {}
+Event::Event(std::string newType, int newArrivalTime, int newTransactionTime = 0) {
+    type = (newType);
+    arrivalTime = (newArrivalTime);
+    transactionTime = (newTransactionTime);
+}
+    
 
-Event::Event(std::string newType, int newArrivalTime, int newTransactionTime) : 
-    type(newType), 
-    arrivalTime(newArrivalTime),
-    transactionTime(newTransactionTime) {}
+// Event::Event(std::string newType, int newArrivalTime, int newTransactionTime = 0) : 
+//     type(newType), 
+//     arrivalTime(newArrivalTime),
+//     transactionTime(newTransactionTime) {}
 
 // // Greater priority object has smaller transactionTime
 // bool Event::operator>(const Event& rhs) {
 //     return transactionTime < rhs.transactionTime;
 // }
 
-// Greater priority object has smaller transactionTime
-bool Event::operator>=(const Event& rhs) {
+// Greater priority object has smaller arrivalTime
+bool Event::operator>(const Event& rhs) {
+    bool soonerEvent;
+    std::string arrivalType = "A", departureType = "D";
+    if ((type == arrivalType && rhs.type == departureType) || arrivalTime < rhs.arrivalTime) {
+        
+    }
     return transactionTime <= rhs.transactionTime;
 }
 
