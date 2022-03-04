@@ -10,7 +10,9 @@ private:
     int transactionTime;
 public:
     Event();
-    Event(std::string type, int arrivalTime, int transactionTime);
+    Event(int arrivalTime);
+    Event(int arrivalTime, std::string type);
+    Event(int arrivalTime, int transactionTime, std::string type);
 
     bool operator>(const Event& rhs);
     bool operator<(const Event& rhs);

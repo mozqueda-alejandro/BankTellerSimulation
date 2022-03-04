@@ -14,7 +14,6 @@ class PriorityQueue : public QueueInterface<ItemType>{
     public:
         PriorityQueue();
         PriorityQueue(const PriorityQueue& pq);
-        // ~PriorityQueue();
 
         bool isEmpty() const;
         bool enqueue(const ItemType& newEntry);

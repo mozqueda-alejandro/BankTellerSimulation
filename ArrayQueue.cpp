@@ -15,7 +15,6 @@ template<class ItemType>
 bool ArrayQueue<ItemType>::enqueue(const ItemType& newEntry) {
     bool canEnqueue = false;
     if (numItems < DEFAULT_CAPACITY) {
-        // Queue has space to enqueue item
         back = (back + 1) % DEFAULT_CAPACITY;
         items[back] = newEntry;
         numItems++;

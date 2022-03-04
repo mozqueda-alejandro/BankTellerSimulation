@@ -1,40 +1,28 @@
 #include "Event.h"
 
-Event::Event() : 
-    type(""),
-    arrivalTime(0),
-    transactionTime(0) {}
+Event::Event() : type(""), arrivalTime(0), transactionTime(0) {}
 
-Event::Event(std::string newType, int newArrivalTime, int newTransactionTime = 0) {
-    type = (newType);
-    arrivalTime = (newArrivalTime);
-    transactionTime = (newTransactionTime);
-}
-    
+Event::Event(int newArrivalTime, std::string newType = "D") {
+    arrivalTime = newArrivalTime;
+    transactionTime = 0;
+    type = newType;
+} 
 
-// Event::Event(std::string newType, int newArrivalTime, int newTransactionTime = 0) : 
-//     type(newType), 
-//     arrivalTime(newArrivalTime),
-//     transactionTime(newTransactionTime) {}
+Event::Event(int newArrivalTime, int newTransactionTime, std::string newType = "A") {
+    arrivalTime = newArrivalTime;
+    transactionTime = newTransactionTime;
+    type = newType;
+} 
 
-// // Greater priority object has smaller transactionTime
-// bool Event::operator>(const Event& rhs) {
-//     return transactionTime < rhs.transactionTime;
-// }
-
+// Format: queueItem > toEnqueueItem
 // Greater priority object has smaller arrivalTime
 bool Event::operator>(const Event& rhs) {
-    bool soonerEvent;
-    std::string arrivalType = "A", departureType = "D";
-    if ((type == arrivalType && rhs.type == departureType) || arrivalTime < rhs.arrivalTime) {
-        
-    }
-    return transactionTime <= rhs.transactionTime;
+    return (arrivalTime <= rhs.arrivalTime); // Add: type == "A" || rhs.type == "D"
 }
 
 // Lesser priority object has larger transactionTime
 bool Event::operator<(const Event& rhs) {
-    return transactionTime > rhs.transactionTime;
+    return arrivalTime > rhs.arrivalTime;
 }
 
 std::ostream& operator<<(std::ostream& stream, const Event& event) {

@@ -18,7 +18,8 @@ void loadData(PriorityQueue<ItemType>& priorityQueue) {
     std::ifstream infile;
     infile.open(fileName);
     while (infile >> arrivalTime >> transactionTime) {
-        Event newArrivalEvent("A", arrivalTime, transactionTime);
+        Event newArrivalEvent(arrivalTime, transactionTime, "A");
+        //std::cout << "C1" << newArrivalEvent.getType() << "C2" << std::endl;
         priorityQueue.enqueue(newArrivalEvent);
     }
     infile.close();
@@ -66,15 +67,14 @@ int main() {
     bool tellerAvailable = true;
     
 //TEST
-    // Event event1("A", 1, 1);
-    // Event event2("A", 1, 0);
-    // Event arr[7] = {event1, event2};
-    // eventList.testenqueue(event1);
-    // eventList.testenqueue(event2);
+    Event test1(1, 1, "A");
+    // Event test2(1, 1, "A");
+    // eventList.testenqueue(test1);
+    // eventList.testenqueue(test2);
 
-    // for (int i = 0; i < 50; i++) {
-    //     Event event1("", 0, 0);
-    //     eventList.testenqueue(event1);
+    // for (int i = 0; i < 8; i++) {
+    //     Event test3("", 0, 0);
+    //     eventList.testenqueue(test3);
     // }
 
     loadData(eventList);
@@ -84,7 +84,6 @@ int main() {
         std::cout << eventList.peekFront() << std::endl;
         eventList.dequeue();
     }
-
 
 //PSEUDOCODE
     // while (!eventList.isEmpty()) {

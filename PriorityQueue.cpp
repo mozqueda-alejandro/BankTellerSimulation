@@ -13,16 +13,13 @@ bool PriorityQueue<ItemType>::isEmpty() const {
 
 template<class ItemType>
 bool PriorityQueue<ItemType>::enqueue(const ItemType& newEntry) {
+    std::cout << "C1" << items[0].getType() << "C2" << std::endl;
     bool canEnqueue = false;
         if (numItems < DEFAULT_CAPACITY) {          
-            
             for (int i = 0; i < DEFAULT_CAPACITY - 1; i++) {
-                // if (items[front].getArrivalTime() + items[front].getTransactionTime() < newEntry.getTransactionTime()) {
-                //     break;
-                // }
-                // More validations needed
                 int index = (back - i + DEFAULT_CAPACITY) % DEFAULT_CAPACITY;
-                if (items[index] >= newEntry) {
+                // std::cout << "C1" << items[index].getType() << "C2" << std::endl;
+                if (items[index] > newEntry) {
                     back = (back + 1) % DEFAULT_CAPACITY;
                     items[(index + 1) % DEFAULT_CAPACITY] = newEntry;
                     numItems++;
@@ -35,33 +32,9 @@ bool PriorityQueue<ItemType>::enqueue(const ItemType& newEntry) {
         }
     return canEnqueue;
 }
-
-// static bool firstEnqueue = true;
-// if (firstEnqueue) {
-//     front = 0;
-//     back = DEFAULT_CAPACITY - 1;
-//     numItems = 0;
-//     firstEnqueue = false;
-// }
-
-// template<class ItemType>
-// bool PriorityQueue<ItemType>::testenqueue(const ItemType& newEntry) {
-//     static int count = 1;
-//     bool canEnqueue = false;
-//     if (numItems < DEFAULT_CAPACITY) {
-//         //Event event1("A", 1, 1);
-//         if (items[0] >= newEntry) {
-//             back = (back + 1) % DEFAULT_CAPACITY;
-//             items[back] = newEntry;
-//             numItems++;
-//             canEnqueue = true;
-//             std::cout << "SUCCESS: " << count << std::endl;
-//         } else {
-//             std::cout << "FAILURE: " << count << std::endl;
-//         }
-//     }
-//     count++;
-//     return canEnqueue;
+// Extra enqueue functionality
+// if (items[front].getArrivalTime() + items[front].getTransactionTime() < newEntry.getTransactionTime()) {
+//     break;
 // }
 
 template<class ItemType>
