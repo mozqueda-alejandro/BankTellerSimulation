@@ -21,8 +21,7 @@ class PriorityQueue : public QueueInterface<ItemType>{
         bool dequeue();
         int getItemCount() const;
 
-        /** @throw  PrecondViolatedExcept if priority queue is empty. */
-        ItemType peekFront() const;// throw(PrecondViolatedExcept);
+        ItemType peekFront() const;
 };
 
 #include "PriorityQueue.cpp"
