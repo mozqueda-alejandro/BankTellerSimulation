@@ -61,3 +61,16 @@ ItemType PriorityQueue<ItemType>::peekFront() const {// throw(exception) {
         return items[front];
     }
 }
+
+template<class T>
+std::ostream& operator<<(std::ostream& stream, const PriorityQueue<T>& priorityQueue) {
+    for (int i = 0; i < priorityQueue.numItems; i++) {
+        stream << priorityQueue.items[(priorityQueue.front + i) % priorityQueue.numItems];
+    }
+    return stream;
+}
+
+// int start = ...
+// for (int i = 0; i < a.length; i++) {
+//     System.out.println(a[(start + i) % a.length]);
+// }

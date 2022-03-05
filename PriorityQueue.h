@@ -1,6 +1,7 @@
 #ifndef PRIORITY_QUEUE_
 #define PRIORITY_QUEUE_
 
+#include <iostream>
 #include "QueueInterface.h"
 
 template<class ItemType>
@@ -22,6 +23,8 @@ class PriorityQueue : public QueueInterface<ItemType>{
         int getItemCount() const;
 
         ItemType peekFront() const;
+        template<class T>
+        friend std::ostream& operator<<(std::ostream& stream, const PriorityQueue<T>& priorityQueue);
 };
 
 #include "PriorityQueue.cpp"

@@ -93,15 +93,16 @@ int main() {
     loadData(eventList);
     std::cout << "EVENT COUNT: " << eventList.getItemCount() << std::endl;
 
-    while (!eventList.isEmpty()) {
-        std::cout << eventList.peekFront() << std::endl;
-        eventList.dequeue();
-    }
+    // while (!eventList.isEmpty()) {
+    //     std::cout << eventList.peekFront() << std::endl;
+    //     eventList.dequeue();
+    // }
 
     while (!eventList.isEmpty()) {
         Event newEvent = eventList.peekFront();
         // Get current time
         currentTime = newEvent.getArrivalTime();
+        std::cout << currentTime << "\t" << eventList << "\n" << std::endl;
         if (newEvent.isArrivalEvent()) {
             processArrival(newEvent, eventList, bankQueue);
         } else {
