@@ -13,13 +13,13 @@ bool PriorityQueue<ItemType>::isEmpty() const {
 
 template<class ItemType>
 bool PriorityQueue<ItemType>::enqueue(const ItemType& newEntry) {
-    std::cout << "C1" << items[0].getType() << "C2" << std::endl;
     bool canEnqueue = false;
         if (numItems < DEFAULT_CAPACITY) {          
             for (int i = 0; i < DEFAULT_CAPACITY - 1; i++) {
                 int index = (back - i + DEFAULT_CAPACITY) % DEFAULT_CAPACITY;
-                // std::cout << "C1" << items[index].getType() << "C2" << std::endl;
+                // First enqueue has no type
                 if (items[index] > newEntry) {
+                    // std::cout << "1-" << items[index].getType() << "-2" << std::endl;
                     back = (back + 1) % DEFAULT_CAPACITY;
                     items[(index + 1) % DEFAULT_CAPACITY] = newEntry;
                     numItems++;
@@ -32,7 +32,7 @@ bool PriorityQueue<ItemType>::enqueue(const ItemType& newEntry) {
         }
     return canEnqueue;
 }
-// Extra enqueue functionality
+// Extra
 // if (items[front].getArrivalTime() + items[front].getTransactionTime() < newEntry.getTransactionTime()) {
 //     break;
 // }

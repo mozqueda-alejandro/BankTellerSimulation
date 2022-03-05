@@ -5,6 +5,9 @@
 #include "PriorityQueue.h"
 #include "Event.h"
 
+int currentTime = 0;
+bool tellerFree = true;
+
 template<class ItemType>
 void loadData(PriorityQueue<ItemType>& priorityQueue) {
     int arrivalTime, transactionTime;
@@ -14,57 +17,67 @@ void loadData(PriorityQueue<ItemType>& priorityQueue) {
 
     // Quick check
     if (fileName == "q") fileName = "test3.txt";
+    if (fileName == "r") fileName = "readmetest.txt";
+    if (fileName == "t") fileName = "textbooktrace.txt";
 
     std::ifstream infile;
     infile.open(fileName);
     while (infile >> arrivalTime >> transactionTime) {
-        Event newArrivalEvent(arrivalTime, transactionTime, "A");
-        //std::cout << "C1" << newArrivalEvent.getType() << "C2" << std::endl;
+        Event newArrivalEvent(arrivalTime, transactionTime);
+        // Type works here but not in enqueue
+        // std::cout << "1-" << newArrivalEvent.getType() << "-2" << std::endl;
         priorityQueue.enqueue(newArrivalEvent);
     }
     infile.close();
 }
 
 template<class ItemType>
-void processArrival(bool tellerFree, PriorityQueue<ItemType>& priorityQueue, ArrayQueue<ItemType>& bankQueue) {
-    // // Remove this event from the event list
-    // eventListPQueue.remove()
+void processArrival(Event arrivalEvent, PriorityQueue<ItemType>& eventList, ArrayQueue<ItemType>& bankQueue) {
+    eventList.dequeue();
     // customer = customer referenced in arrivalEvent
-    // if (bankQueue.isEmpty() && tellerAvailable) {
-    //     departureTime = currentTime + transaction time in arrivalEvent
-    //     newDepartureEvent = a new departure event with departureTime
-    //     eventListPQueue.add(newDepartureEvent)
-    //     tellerAvailable = false
-    // }
-    // else
-    // bankQueue.enqueue(customer)
-
+    if (bankQueue.isEmpty() && tellerFree) {
+        int departureTime = currentTime + arrivalEvent.getTransactionTime();
+        Event newDepartureEvent(departureTime);
+        eventList.enqueue(newDepartureEvent);
+        tellerFree = false;
+    } else{
+        bankQueue.enqueue(arrivalEvent); // enqueue customer
+    }
 }
 
 template<class ItemType>
-void processDeparture(bool tellerFree, PriorityQueue<ItemType>& priorityQueue, ArrayQueue<ItemType>& bankQueue) {
-    // Processes a departure event .
-    
-    // //Event currentEvent = priorityQueue.peekFront();
-    // // Remove this event from the event list  
-    // priorityQueue.remove();
-    // if (!bankQueue.isEmpty()) { 
-    // // Customer at front of line begins transaction  
-    //     customer = bankQueue.peek() 
-    //     bankQueue.dequeue() 
-    //     departureTime = currentTime + transaction time in customer
-    //     newDepartureEvent =  a new departure event with departureTime 
-    //     eventListPQueue.add(newDepartureEvent) 
-    // } 
-    // else {
-    //     tellerAvailable  = true
-    // }
+void processDeparture(Event departureEvent, PriorityQueue<ItemType>& eventList, ArrayQueue<ItemType>& bankQueue) {
+    eventList.dequeue();
+    if (!bankQueue.isEmpty()) { 
+    // Customer at front of line begins transaction  
+        int departureTime = currentTime + bankQueue.peekFront().getTransactionTime();
+        Event newDepartureEvent(departureTime);
+        eventList.enqueue(newDepartureEvent);
+        bankQueue.dequeue();
+    } else {
+        tellerFree  = true;
+    }
 }
 
 int main() {
     ArrayQueue<Event> bankQueue;
     PriorityQueue<Event> eventList;
     bool tellerAvailable = true;
+    //int currentTime; // peekFront().getArrivalTime()
+    int totalCustomers; // processArrival() { totalCustomers++ }
+    /**
+     * Easy implementation: (SUM: For front/being served customers ( currentTime - arrivalTime ) ) / totalCustomers
+     * 
+     * Instantaneous wait: (SUM: For every BankQueue arrival (For every notServed (currentTime-arrivalTime) + beingServed.partialWait) ) ) / totalCustomers
+     * Validation for partialWait if chosen time interval ends while customer, who previously waited, is being served
+     * In this case currentTime - arrivalTime > actualWait
+     * ex. averageWait from 0 to 15(currentTIme), arrivalTime = 5, servedAt = 10, actualWait = 5; calculatedWait = 10
+     */
+    float averageWait;
+
+    float maxWait; // max_element during averageWait loop
+    float averageLineLen; // ((currentTime - lastTime) * lineLen) / (Last arrivalTime + transactionTime)
+    int maxLineLen; // max_element (currentTime - lastTime) * lineLen)
     
 //TEST
     Event test1(1, 1, "A");
@@ -85,16 +98,16 @@ int main() {
         eventList.dequeue();
     }
 
-//PSEUDOCODE
-    // while (!eventList.isEmpty()) {
-    //     newEvent = eventListPQueue.peek()
-    //     // Get current time
-    //     currentTime = time of newEvent
-    //     if (newEvent == type arrivalEvent)
-    //     processArrival(newEvent, eventListPQueue, bankQueue)
-    //     else
-    //     processDeparture(newEvent, eventListPQueue, bankQueue)
-    // }
+    while (!eventList.isEmpty()) {
+        Event newEvent = eventList.peekFront();
+        // Get current time
+        currentTime = newEvent.getArrivalTime();
+        if (newEvent.isArrivalEvent()) {
+            processArrival(newEvent, eventList, bankQueue);
+        } else {
+            processDeparture(newEvent, eventList, bankQueue);
+        }
+    }
 
     return 0;
 };

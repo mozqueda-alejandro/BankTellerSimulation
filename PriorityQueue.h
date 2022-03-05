@@ -6,7 +6,7 @@
 template<class ItemType>
 class PriorityQueue : public QueueInterface<ItemType>{
     private:
-        static const int DEFAULT_CAPACITY = 8;
+        static const int DEFAULT_CAPACITY = 20;
         ItemType items[DEFAULT_CAPACITY];
         int front; // Index to front of queue
         int back; // Index to back of queue
