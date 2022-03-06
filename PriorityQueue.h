@@ -2,6 +2,7 @@
 #define PRIORITY_QUEUE_
 
 #include <iostream>
+#include <sstream>
 #include "QueueInterface.h"
 
 template<class ItemType>
@@ -18,7 +19,6 @@ class PriorityQueue : public QueueInterface<ItemType>{
 
         bool isEmpty() const;
         bool enqueue(const ItemType& newEntry);
-        // bool testenqueue(const ItemType& newEntry);
         bool dequeue();
         int getItemCount() const;
 

@@ -80,19 +80,26 @@ int main() {
     int maxLineLen; // max_element (currentTime - lastTime) * lineLen)
     
 //TEST
-    Event test1(1, 1, "A");
-    // Event test2(1, 1, "A");
-    // eventList.testenqueue(test1);
-    // eventList.testenqueue(test2);
-
+    // Event test1(9);
+    // Event test2(15);
     // for (int i = 0; i < 8; i++) {
-    //     Event test3("", 0, 0);
+    //     Event test3(0);
     //     eventList.testenqueue(test3);
     // }
 
+    // loadData(eventList);
+    // eventList.enqueue(test2);
+    // eventList.enqueue(test1);
     loadData(eventList);
+
     std::cout << "EVENT COUNT: " << eventList.getItemCount() << std::endl;
 
+    // Print PQueue elements
+    // while (eventList.peekFront().isArrivalEvent()) {
+    //     std::cout << eventList.peekFront() << std::endl;
+    //     eventList.dequeue();
+    // }
+    // std::cout << "div" << std::endl;
     // while (!eventList.isEmpty()) {
     //     std::cout << eventList.peekFront() << std::endl;
     //     eventList.dequeue();
@@ -100,7 +107,6 @@ int main() {
 
     while (!eventList.isEmpty()) {
         Event newEvent = eventList.peekFront();
-        // Get current time
         currentTime = newEvent.getArrivalTime();
         std::cout << currentTime << "\t" << eventList << "\n" << std::endl;
         if (newEvent.isArrivalEvent()) {

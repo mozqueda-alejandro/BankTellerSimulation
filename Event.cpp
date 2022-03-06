@@ -30,29 +30,36 @@ bool Event::operator<(const Event& rhs) {
 }
 
 std::ostream& operator<<(std::ostream& stream, const Event& event) {
-    
     int typeLen = (event.type).length();
     int arrivalLen = 4, transactionLen = 3;
-    // for (int i = 0; i < typeLen + arrivalLen + transactionLen + 4; i++) {
-    //     stream << "_";
-    // }
-    // stream << "\n";
-    stream << "|" << event.type << "|";
-    for (int i = std::to_string(event.arrivalTime).length(); i < arrivalLen; i++) {
-        stream << "0";
-    }
-    stream << event.arrivalTime;
-    stream << "|";
-    for (int i = std::to_string(event.transactionTime).length(); i < transactionLen; i++) {
-        stream << "0";
-    }
-    stream << event.transactionTime << "|";
-    stream << "\t";
-    // stream << "\n";
-    // for (int i = 0; i < typeLen + arrivalLen + transactionLen + 4; i++) {
-    //     stream << "\u203E";
-    // }
+    
+    if (std::to_string(event.arrivalTime).length() > arrivalLen) {
+        throw std::runtime_error("Event.cpp: error in operator<<: Arrival time cannot be formatted properly");
+    } else if (std::to_string(event.transactionTime).length() > transactionLen) {
+        throw std::runtime_error("Event.cpp: error in operator<<: Transaction time cannot be formatted properly");
+    } else {
+        // for (int i = 0; i < typeLen + arrivalLen + transactionLen + 4; i++) {
+        //     stream << "_";
+        // }
+        // stream << "\n";
 
+        stream << "|" << event.type << "|";
+        for (int i = std::to_string(event.arrivalTime).length(); i < arrivalLen; i++) {
+            stream << "0";
+        }
+        stream << event.arrivalTime;
+        stream << "|";
+        for (int i = std::to_string(event.transactionTime).length(); i < transactionLen; i++) {
+            stream << "0";
+        }
+        stream << event.transactionTime << "|";
+        stream << "\t";
+
+        // stream << "\n";
+        // for (int i = 0; i < typeLen + arrivalLen + transactionLen + 4; i++) {
+        //     stream << "\u203E";
+        // }
+    }
     // Processing Print function . . .
     // stream << "Processing a";
     // if (event.type == "A") {
