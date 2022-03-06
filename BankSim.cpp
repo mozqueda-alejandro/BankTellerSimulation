@@ -91,6 +91,7 @@ void BankSim::test() {
     currentTime = timeEvent.getArrivalTime();
     std::cout << "Simulation Begins Processing an arrival event at time: " << (currentTime = timeEvent.getArrivalTime()) << std::endl;
     while (!eventList.isEmpty()) {
+        int deTime;
         Event newEvent = eventList.peekFront();
         currentTime = newEvent.getArrivalTime();
         std::cout << currentTime << "\t" << eventList << "\n" << std::endl;
@@ -99,7 +100,7 @@ void BankSim::test() {
             std::cout << "Processing arrival event at time: " << currentTime << std::endl;
         } else {
             processDeparture(newEvent);
-            //std::cout << "Processing departure event at time: " << (currentTime + bankQueue.peekFront().getTransactionTime());
+            //std::cout << "Processing departure event at time: " << (deTime = currentTime + bankQueue.peekFront().getTransactionTime());
         }
     }
 }
