@@ -1,8 +1,14 @@
 #include "BankSim.h"
 
-// BankSim::BankSim() {
-
-// }
+BankSim::BankSim() : 
+    tellerFree(true),
+    currentTime(0), 
+    totalCustomers(0), 
+    averageWait(0),
+    maxWait(0), 
+    averageLineLen(0),
+    maxLineLen(0),
+    numQueues(0) {}
 
 void BankSim::loadData() {
     int arrivalTime, transactionTime;
@@ -38,6 +44,7 @@ void BankSim::processArrival(Event arrivalEvent) {
     } else{
         bankQueue.enqueue(arrivalEvent); // enqueue customer
     }
+    totalCustomers++;
 }
 
 void BankSim::processDeparture(Event departureEvent) {

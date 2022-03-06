@@ -9,9 +9,9 @@
 
 class BankSim {
 private:
-    bool tellerFree = true;
-    int currentTime = 0; // peekFront().getArrivalTime()
-    int totalCustomers; // processArrival() { totalCustomers++ }
+    bool tellerFree;
+    int currentTime; // peekFront().getArrivalTime()
+    int totalCustomers;
     /**
      * Easy implementation: (SUM: For front/being served customers ( currentTime - arrivalTime ) ) / totalCustomers
      * 
@@ -35,7 +35,7 @@ private:
     ArrayQueue<Event> bankQueue;
     PriorityQueue<Event> eventList;    
 public:
-    BankSim() = default;
+    BankSim();
 
     void loadData();
     void processArrival(Event arrivalEvent);

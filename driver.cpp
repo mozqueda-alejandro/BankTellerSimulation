@@ -1,5 +1,4 @@
 //GitHub team: mozqueda-long
-#include <fstream>
 #include "BankSim.h"
 
 int main() {
