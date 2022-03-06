@@ -36,6 +36,7 @@ void processArrival(Event arrivalEvent, PriorityQueue<ItemType>& eventList, Arra
     eventList.dequeue();
     // customer = customer referenced in arrivalEvent
     if (bankQueue.isEmpty() && tellerFree) {
+        //std::cout << "Processing arrival at time:" << currentTime << std::endl;
         int departureTime = currentTime + arrivalEvent.getTransactionTime();
         Event newDepartureEvent(departureTime);
         eventList.enqueue(newDepartureEvent);
@@ -51,6 +52,8 @@ void processDeparture(Event departureEvent, PriorityQueue<ItemType>& eventList, 
     if (!bankQueue.isEmpty()) { 
     // Customer at front of line begins transaction  
         int departureTime = currentTime + bankQueue.peekFront().getTransactionTime();
+        //std::cout << "Processing arrival at time:" << currentTime << std::endl;
+        //std::cout << "Processing departure at time: "  << departureTime << std::endl;
         Event newDepartureEvent(departureTime);
         eventList.enqueue(newDepartureEvent);
         bankQueue.dequeue();
