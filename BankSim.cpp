@@ -87,7 +87,9 @@ void BankSim::test() {
     //     std::cout << eventList.peekFront() << std::endl;
     //     eventList.dequeue();
     // }
-
+    Event timeEvent = eventList.peekFront();
+    currentTime = timeEvent.getArrivalTime();
+    std::cout << "Simulation Begins Processing an arrival event at time: " << (currentTime = timeEvent.getArrivalTime()) << std::endl;
     while (!eventList.isEmpty()) {
         Event newEvent = eventList.peekFront();
         currentTime = newEvent.getArrivalTime();
