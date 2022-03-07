@@ -12,27 +12,28 @@ private:
     int currentTime;
     int previousTime;
     int totalCustomers;
-    float totalWait; //Necessary for averageWeight
+    float totalWait; //Used for averageWeight
 
     int maxWait;
-    float totalLineLen; // averageLineLen // ((currentTime - lastTime) * lineLen) / (Last arrivalTime + transactionTime)
-    int maxLineLen; // max_element (currentTime - lastTime) * lineLen)
+    float totalLineLen; //Used for averageLineLen
+    int maxLineLen;
 
     int numQueues;
     static const int DEFAULT_QUEUES = 5;
     ArrayQueue<Event> bankQueues[DEFAULT_QUEUES];
     ArrayQueue<Event> bankQueue;
-    PriorityQueue<Event> eventList; 
+    PriorityQueue<Event> eventList;
+    std::string fileName;
 public:
     BankSim();
+    void initVars();
 
     void loadData();
     void processArrival(Event arrivalEvent);
     void processDeparture(Event departureEvent);
 
-    void runSimulation();
-    void printStats();
-    void printTrace();
+    void runSimulation(std::string flag = "");
+    void printStats() const;
 };
 
 #endif //BANK_SIM

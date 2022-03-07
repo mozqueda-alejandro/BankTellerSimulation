@@ -8,7 +8,7 @@
 template<class ItemType>
 class PriorityQueue : public QueueInterface<ItemType>{
     private:
-        static const int DEFAULT_CAPACITY = 20;
+        static const int DEFAULT_CAPACITY = 30;
         ItemType items[DEFAULT_CAPACITY];
         int front; // Index to front of queue
         int back; // Index to back of queue
@@ -20,6 +20,7 @@ class PriorityQueue : public QueueInterface<ItemType>{
         bool isEmpty() const;
         bool enqueue(const ItemType& newEntry);
         bool dequeue();
+        void clear();
         int getItemCount() const;
 
         ItemType peekFront() const;

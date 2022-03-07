@@ -17,6 +17,7 @@ public:
 	bool isEmpty() const;
 	bool enqueue(const ItemType& newEntry);
 	bool dequeue();
+	void clear();
 	int getItemCount() const;
 	
 	/** @throw exception if queue is empty */

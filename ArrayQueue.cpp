@@ -35,6 +35,14 @@ bool ArrayQueue<ItemType>::dequeue() {
 }
 
 template<class ItemType>
+void ArrayQueue<ItemType>::clear() {
+    while (dequeue()) {}
+    front = 0;
+    back = DEFAULT_CAPACITY - 1;
+    numItems = 0;
+}
+
+template<class ItemType>
 int ArrayQueue<ItemType>::getItemCount() const{
     return numItems;
 }

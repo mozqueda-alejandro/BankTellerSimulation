@@ -49,6 +49,14 @@ bool PriorityQueue<ItemType>::dequeue() {
 }
 
 template<class ItemType>
+void PriorityQueue<ItemType>::clear() {
+    while (dequeue()) {}
+    front = 0;
+    back = DEFAULT_CAPACITY - 1;
+    numItems = 0;
+}
+
+template<class ItemType>
 int PriorityQueue<ItemType>::getItemCount() const{
     return numItems;
 }
@@ -65,14 +73,8 @@ ItemType PriorityQueue<ItemType>::peekFront() const {// throw(exception) {
 
 template<class T>
 std::ostream& operator<<(std::ostream& stream, const PriorityQueue<T>& priorityQueue) {
-    std::ostringstream temp;
-    try {
-        for (int i = 0; i < + priorityQueue.numItems; i++) {
-            temp << priorityQueue.items[(priorityQueue.front + i) % priorityQueue.DEFAULT_CAPACITY];
-        }
-        stream << temp.rdbuf();
-    } catch(const std::exception& e) {
-        stream << e.what();
+    for (int i = 0; i < + priorityQueue.numItems; i++) {
+        stream << priorityQueue.items[(priorityQueue.front + i) % priorityQueue.DEFAULT_CAPACITY];
     }
     return stream;
 }
