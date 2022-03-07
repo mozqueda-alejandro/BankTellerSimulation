@@ -5,7 +5,7 @@
 int main() {
     bool repeatProg = true;
     do {
-        system("clear");
+        system("clear"); // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         BankSim newSimulation;
         newSimulation.runSimulation();
         newSimulation.printStats();
@@ -24,7 +24,7 @@ int main() {
             newSimulation.runSimulation("trace");
             std::cout << "Press ENTER to continue. . ." << std::endl;
             std::cin.ignore(std::numeric_limits <std::streamsize>::max(), '\n');
-            system("clear");
+            system("clear"); // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 // repeatProg = false;
                 std::cout << "Please make a selection\n";
                 std::cout << "1: Try another simulation\n";
@@ -32,7 +32,7 @@ int main() {
                 std::cin >> userInput;
                 if (userInput == "0") repeatProg = false;
         }
-        system("clear");
+        system("clear"); // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     } while (repeatProg);
     return 0;
 };

@@ -29,17 +29,18 @@ void BankSim::loadData() {
             std::cout << "**To try the example trace in Exercise 11 enter:   \'s\'" << std::endl;
             std::cout << "Enter bank simulation text file: ";
             std::cin >> fileName;
+
+            if (fileName == "q") fileName = "random.txt";
+            if (fileName == "r") fileName = "readmetest.txt";
+            if (fileName == "t") fileName = "textbooktrace.txt";
+            if (fileName == "s") fileName = "uexercise11.txt";
         }
-        
-        // Quick check
-        if (fileName == "q") fileName = "random.txt";
-        if (fileName == "r") fileName = "readmetest.txt";
-        if (fileName == "t") fileName = "textbooktrace.txt";
-        if (fileName == "s") fileName = "uexercise11.txt";
 
         infile.open(fileName);
-        if (!infile) {
-            std::cout << "Invalid file name" << std::endl;
+        if (!infile.is_open()) {
+            system("clear"); // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            std::cout << "Invalid file name\n" << std::endl;
+            fileName.clear();
             continue;
         }
         while (infile >> arrivalTime >> transactionTime) {
