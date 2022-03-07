@@ -49,7 +49,7 @@ void BankSim::processArrival(Event arrivalEvent) {
     } else{
         bankQueue.enqueue(customerEvent); // enqueue customer
     }
-    //std::cout << "Processing arrival event at time: " << currentTime << std::endl;
+    std::cout << "Processing arrival event at time: " << currentTime << std::endl;
     totalArrival += newEvent.getArrivalTime();
     totalTransaction += newEvent.getTransactionTime();
     eventList.dequeue();
@@ -69,7 +69,7 @@ void BankSim::processDeparture(Event departureEvent) {
     } else {
         tellerFree  = true;
     }
-    //std::cout << "Processing departure event at time: " << currentTime << std::endl;
+    std::cout << "Processing departure event at time: " << currentTime << std::endl;
     totalDeparture += currentTime;
 }
 
