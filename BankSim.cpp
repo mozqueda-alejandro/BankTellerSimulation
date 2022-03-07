@@ -37,9 +37,6 @@ void BankSim::loadData() {
 }
 
 void BankSim::processArrival(Event arrivalEvent) {
-    Event newEvent = eventList.peekFront();
-    Event customerEvent = newEvent;
-    
     // customer = customer referenced in arrivalEvent
     if (bankQueue.isEmpty() && tellerFree) {
         int departureTime = currentTime + arrivalEvent.getTransactionTime();
@@ -47,11 +44,11 @@ void BankSim::processArrival(Event arrivalEvent) {
         eventList.enqueue(newDepartureEvent);
         tellerFree = false;
     } else{
-        bankQueue.enqueue(customerEvent); // enqueue customer
+        bankQueue.enqueue(arrivalEvent); // enqueue customer
     }
-    //std::cout << "Processing arrival event at time: " << currentTime << std::endl;
-    totalArrival += newEvent.getArrivalTime();
-    totalTransaction += newEvent.getTransactionTime();
+    std::cout << "Processing arrival event at time: " << currentTime << std::endl;
+    totalArrival += arrivalEvent.getArrivalTime();
+    totalTransaction += arrivalEvent.getTransactionTime();
     eventList.dequeue();
     totalCustomers++;
 }
@@ -69,7 +66,7 @@ void BankSim::processDeparture(Event departureEvent) {
     } else {
         tellerFree  = true;
     }
-    //std::cout << "Processing departure event at time: " << currentTime << std::endl;
+    std::cout << "Processing departure event at time: " << currentTime << std::endl;
     totalDeparture += currentTime;
 }
 
@@ -100,21 +97,21 @@ void BankSim::test() {
     // }
     Event timeEvent = eventList.peekFront();
     currentTime = timeEvent.getArrivalTime();
-    std::cout << "Simulation Begins Processing an arrival event at time: " << (currentTime = timeEvent.getArrivalTime()) << std::endl;
+    std::cout << "Simulation Begins" << std::endl;
     while (!eventList.isEmpty()) {
         Event newEvent = eventList.peekFront();
         currentTime = newEvent.getArrivalTime();
-        std::cout << currentTime << "\t" << eventList << "\n" << std::endl;
+        // std::cout << currentTime << "\t" << eventList << "\n" << std::endl;
         if (newEvent.isArrivalEvent()) {
             processArrival(newEvent);
         } else {
             processDeparture(newEvent);
         }
     }
+    std::cout << "Simulation ends." << '\n' << std::endl;
 
     totalWaitingTime = (totalDeparture - totalTransaction - totalArrival)/totalCustomers;
     std::cout << "Final Statistics:" << std::endl;
     std::cout << "\tTotal number of people processed: " << totalCustomers << std::endl;
     std::cout << "\tAverage amount of time spent waiting: " << totalWaitingTime << std::endl;
-    std::cout << "Simulation ends." << std::endl;
 }
