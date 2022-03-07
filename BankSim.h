@@ -6,7 +6,6 @@
 #include "PriorityQueue.h"
 #include "Event.h"
 
-
 class BankSim {
 private:
     bool tellerFree;
@@ -33,11 +32,7 @@ private:
     static const int DEFAULT_QUEUES = 5;
     ArrayQueue<Event> bankQueues[DEFAULT_QUEUES];
     ArrayQueue<Event> bankQueue;
-    PriorityQueue<Event> eventList;
-    double totalWaitingTime;
-    double totalTransaction;
-    double totalDeparture;
-    double totalArrival;  
+    PriorityQueue<Event> eventList; 
 public:
     BankSim();
 

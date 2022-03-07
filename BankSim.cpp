@@ -4,15 +4,11 @@ BankSim::BankSim() :
     tellerFree(true),
     currentTime(0), 
     totalCustomers(0), 
-    totalWait(0),
+    totalWait(0.0f),
     maxWait(0), 
     totalLineLen(0),
     maxLineLen(0),
-    numQueues(0),
-    totalWaitingTime(0.0),
-    totalTransaction(0),
-    totalDeparture(0),
-    totalArrival(0) {}
+    numQueues(0) {}
 
 void BankSim::loadData() {
     int arrivalTime, transactionTime;
@@ -21,9 +17,10 @@ void BankSim::loadData() {
     std::cin >> fileName;
 
     // Quick check
-    if (fileName == "q") fileName = "test3.txt";
+    if (fileName == "q") fileName = "random.txt";
     if (fileName == "r") fileName = "readmetest.txt";
     if (fileName == "t") fileName = "textbooktrace.txt";
+    if (fileName == "s") fileName = "uexercise11.txt";
 
     std::ifstream infile;
     infile.open(fileName);
@@ -46,8 +43,6 @@ void BankSim::processArrival(Event arrivalEvent) {
         bankQueue.enqueue(arrivalEvent);
     }
     std::cout << "Processing arrival event at time: " << currentTime << std::endl;
-    totalArrival += arrivalEvent.getArrivalTime();
-    totalTransaction += arrivalEvent.getTransactionTime();
     eventList.dequeue();
     totalCustomers++;
 }
@@ -56,17 +51,15 @@ void BankSim::processDeparture(Event departureEvent) {
     eventList.dequeue();
     if (!bankQueue.isEmpty()) { 
     // Customer at front of line begins transaction
-        Event customerEvent = bankQueue.peekFront();
         int departureTime = currentTime + bankQueue.peekFront().getTransactionTime();
         Event newDepartureEvent(departureTime);
         eventList.enqueue(newDepartureEvent);
-        totalWait = currentTime - departureEvent.getArrivalTime();
+        totalWait += currentTime - bankQueue.peekFront().getArrivalTime();
         bankQueue.dequeue();
     } else {
         tellerFree  = true;
     }
     std::cout << "Processing departure event at time: " << currentTime << std::endl;
-    totalDeparture += currentTime;
 }
 
 void BankSim::test() {
@@ -85,8 +78,7 @@ void BankSim::test() {
     }
     std::cout << "Simulation Ends\n" << std::endl;
 
-    totalWaitingTime = (totalDeparture - totalTransaction - totalArrival)/totalCustomers;
     std::cout << "Final Statistics:" << std::endl;
     std::cout << "\tTotal number of people processed: " << totalCustomers << std::endl;
-    std::cout << "\tAverage amount of time spent waiting: " << totalWaitingTime << std::endl;
+    std::cout << "\tAverage amount of time spent waiting: " << (totalWait / totalCustomers) << std::endl;
 }
