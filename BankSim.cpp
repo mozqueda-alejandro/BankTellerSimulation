@@ -47,8 +47,13 @@ void BankSim::processArrival(Event arrivalEvent) {
         bankQueue.enqueue(arrivalEvent); // enqueue customer
     }
     std::cout << "Processing arrival event at time: " << currentTime << std::endl;
+<<<<<<< HEAD
     totalArrival += arrivalEvent.getArrivalTime();
     totalTransaction += arrivalEvent.getTransactionTime();
+=======
+    totalArrival += newEvent.getArrivalTime();
+    totalTransaction += newEvent.getTransactionTime();
+>>>>>>> 7305320535aad95e46722b9101b274d9bf157178
     eventList.dequeue();
     totalCustomers++;
 }
