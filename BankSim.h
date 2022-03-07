@@ -9,22 +9,12 @@
 class BankSim {
 private:
     bool tellerFree;
-    int currentTime; // peekFront().getArrivalTime()
-    double totalCustomers;
-    /**
-     * Easy implementation: (SUM: For front/being served customers ( currentTime - arrivalTime ) ) / totalCustomers
-     * 
-     * Instantaneous wait: (SUM: For every BankQueue arrival (For every notServed (currentTime-arrivalTime) + beingServed.partialWait) ) ) / totalCustomers
-     * Validation for partialWait if chosen time interval ends while customer, who previously waited, is being served
-     * In this case currentTime - arrivalTime > actualWait
-     * ex. averageWait from 0 to 15(currentTIme), arrivalTime = 5, servedAt = 10, actualWait = 5; calculatedWait = 10
-     */
-    float totalWait; //averageWeight
+    int currentTime;
+    int previousTime;
+    int totalCustomers;
+    float totalWait; //Necessary for averageWeight
 
-    /**
-     * Extra Credit
-     */
-    float maxWait; // max_element during averageWait loop
+    int maxWait;
     float totalLineLen; // averageLineLen // ((currentTime - lastTime) * lineLen) / (Last arrivalTime + transactionTime)
     int maxLineLen; // max_element (currentTime - lastTime) * lineLen)
 
@@ -40,7 +30,9 @@ public:
     void processArrival(Event arrivalEvent);
     void processDeparture(Event departureEvent);
 
-    void test();
+    void runSimulation();
+    void printStats();
+    void printTrace();
 };
 
 #endif //BANK_SIM

@@ -35,6 +35,11 @@ bool ArrayQueue<ItemType>::dequeue() {
 }
 
 template<class ItemType>
+int ArrayQueue<ItemType>::getItemCount() const{
+    return numItems;
+}
+
+template<class ItemType>
 ItemType ArrayQueue<ItemType>::peekFront() const {// throw(exception) {
     if (isEmpty()) {
         std::cout << "error4\n";
@@ -42,4 +47,12 @@ ItemType ArrayQueue<ItemType>::peekFront() const {// throw(exception) {
     } else {
         return items[front];
     }
+}
+
+template<class T>
+std::ostream& operator<<(std::ostream& stream, const ArrayQueue<T>& arrayQueue) {
+    for (int i = 0; i < + arrayQueue.numItems; i++) {
+        stream << arrayQueue.items[(arrayQueue.front + i) % arrayQueue.DEFAULT_CAPACITY];
+    }
+    return stream;
 }

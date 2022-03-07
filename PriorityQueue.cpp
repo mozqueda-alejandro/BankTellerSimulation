@@ -65,14 +65,14 @@ ItemType PriorityQueue<ItemType>::peekFront() const {// throw(exception) {
 
 template<class T>
 std::ostream& operator<<(std::ostream& stream, const PriorityQueue<T>& priorityQueue) {
-    //std::ostringstream temp;
-    // try {
+    std::ostringstream temp;
+    try {
         for (int i = 0; i < + priorityQueue.numItems; i++) {
-            /*temp*/stream << priorityQueue.items[(priorityQueue.front + i) % priorityQueue.DEFAULT_CAPACITY];
+            temp << priorityQueue.items[(priorityQueue.front + i) % priorityQueue.DEFAULT_CAPACITY];
         }
-        //stream << temp.rdbuf();
-    // } catch(const std::exception& e) {
-    //     stream << e.what();
-    // }
+        stream << temp.rdbuf();
+    } catch(const std::exception& e) {
+        stream << e.what();
+    }
     return stream;
 }
