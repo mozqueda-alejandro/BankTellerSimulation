@@ -34,8 +34,10 @@ std::ostream& operator<<(std::ostream& stream, const Event& event) {
     int arrivalLen = 4, transactionLen = 3;
     
     if (std::to_string(event.arrivalTime).length() > arrivalLen) {
+        std::cout << "error1\n";
         throw std::runtime_error("Event.cpp: error in operator<<: Arrival time cannot be formatted properly");
     } else if (std::to_string(event.transactionTime).length() > transactionLen) {
+        std::cout << "error2\n";
         throw std::runtime_error("Event.cpp: error in operator<<: Transaction time cannot be formatted properly");
     } else {
         // for (int i = 0; i < typeLen + arrivalLen + transactionLen + 4; i++) {
@@ -50,10 +52,18 @@ std::ostream& operator<<(std::ostream& stream, const Event& event) {
         stream << event.arrivalTime;
         stream << "|";
         for (int i = std::to_string(event.transactionTime).length(); i < transactionLen; i++) {
-            stream << "0";
+            if (event.type == event.DEFAULT_ARRIVAL) {
+                stream << "0";
+            } else {
+                stream << "-";
+            }
         }
-        stream << event.transactionTime << "|";
-        stream << "\t";
+        if (event.type == event.DEFAULT_ARRIVAL) {
+            stream << event.transactionTime;
+        } else {
+            stream << "-";
+        }
+        stream << "|\t";
 
         // stream << "\n";
         // for (int i = 0; i < typeLen + arrivalLen + transactionLen + 4; i++) {

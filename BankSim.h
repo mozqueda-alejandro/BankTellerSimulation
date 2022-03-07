@@ -11,7 +11,7 @@ class BankSim {
 private:
     bool tellerFree;
     int currentTime; // peekFront().getArrivalTime()
-    int totalCustomers;
+    double totalCustomers;
     /**
      * Easy implementation: (SUM: For front/being served customers ( currentTime - arrivalTime ) ) / totalCustomers
      * 
@@ -20,20 +20,24 @@ private:
      * In this case currentTime - arrivalTime > actualWait
      * ex. averageWait from 0 to 15(currentTIme), arrivalTime = 5, servedAt = 10, actualWait = 5; calculatedWait = 10
      */
-    float averageWait;
+    float totalWait; //averageWeight
 
     /**
      * Extra Credit
      */
     float maxWait; // max_element during averageWait loop
-    float averageLineLen; // ((currentTime - lastTime) * lineLen) / (Last arrivalTime + transactionTime)
+    float totalLineLen; // averageLineLen // ((currentTime - lastTime) * lineLen) / (Last arrivalTime + transactionTime)
     int maxLineLen; // max_element (currentTime - lastTime) * lineLen)
 
     int numQueues;
     static const int DEFAULT_QUEUES = 5;
     ArrayQueue<Event> bankQueues[DEFAULT_QUEUES];
     ArrayQueue<Event> bankQueue;
-    PriorityQueue<Event> eventList;    
+    PriorityQueue<Event> eventList;
+    double totalWaitingTime;
+    double totalTransaction;
+    double totalDeparture;
+    double totalArrival;  
 public:
     BankSim();
 

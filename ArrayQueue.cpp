@@ -37,6 +37,7 @@ bool ArrayQueue<ItemType>::dequeue() {
 template<class ItemType>
 ItemType ArrayQueue<ItemType>::peekFront() const {// throw(exception) {
     if (isEmpty()) {
+        std::cout << "error4\n";
         throw ("Queue has no items");
     } else {
         return items[front];

@@ -56,6 +56,7 @@ int PriorityQueue<ItemType>::getItemCount() const{
 template<class ItemType>
 ItemType PriorityQueue<ItemType>::peekFront() const {// throw(exception) {
     if (isEmpty()) {
+        std::cout << "error3\n";
         throw ("Queue has no items");
     } else {
         return items[front];
@@ -65,13 +66,13 @@ ItemType PriorityQueue<ItemType>::peekFront() const {// throw(exception) {
 template<class T>
 std::ostream& operator<<(std::ostream& stream, const PriorityQueue<T>& priorityQueue) {
     //std::ostringstream temp;
-    try {
-        for (int i = 0; i < priorityQueue.numItems; i++) {
-            /*temp*/stream << priorityQueue.items[(priorityQueue.front + i) % priorityQueue.numItems];
+    // try {
+        for (int i = 0; i < + priorityQueue.numItems; i++) {
+            /*temp*/stream << priorityQueue.items[(priorityQueue.front + i) % priorityQueue.DEFAULT_CAPACITY];
         }
         //stream << temp.rdbuf();
-    } catch(const std::exception& e) {
-        stream << e.what();
-    }
+    // } catch(const std::exception& e) {
+    //     stream << e.what();
+    // }
     return stream;
 }
