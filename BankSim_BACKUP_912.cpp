@@ -37,17 +37,23 @@ void BankSim::loadData() {
 }
 
 void BankSim::processArrival(Event arrivalEvent) {
+    // customer = customer referenced in arrivalEvent
     if (bankQueue.isEmpty() && tellerFree) {
         int departureTime = currentTime + arrivalEvent.getTransactionTime();
         Event newDepartureEvent(departureTime);
         eventList.enqueue(newDepartureEvent);
         tellerFree = false;
     } else{
-        bankQueue.enqueue(arrivalEvent);
+        bankQueue.enqueue(arrivalEvent); // enqueue customer
     }
     std::cout << "Processing arrival event at time: " << currentTime << std::endl;
+<<<<<<< HEAD
     totalArrival += arrivalEvent.getArrivalTime();
     totalTransaction += arrivalEvent.getTransactionTime();
+=======
+    totalArrival += newEvent.getArrivalTime();
+    totalTransaction += newEvent.getTransactionTime();
+>>>>>>> 7305320535aad95e46722b9101b274d9bf157178
     eventList.dequeue();
     totalCustomers++;
 }
@@ -70,8 +76,32 @@ void BankSim::processDeparture(Event departureEvent) {
 }
 
 void BankSim::test() {
+    // Event test1(9);
+    // Event test2(15);
+    // for (int i = 0; i < 8; i++) {
+    //     Event test3(0);
+    //     eventList.testenqueue(test3);
+    // }
+
+    // loadData();
+    // eventList.enqueue(test2);
+    // eventList.enqueue(test1);
     loadData();
 
+    std::cout << "EVENT COUNT: " << eventList.getItemCount() << std::endl;
+
+    // Print PQueue elements
+    // while (eventList.peekFront().isArrivalEvent()) {
+    //     std::cout << eventList.peekFront() << std::endl;
+    //     eventList.dequeue();
+    // }
+    // std::cout << "div" << std::endl;
+    // while (!eventList.isEmpty()) {
+    //     std::cout << eventList.peekFront() << std::endl;
+    //     eventList.dequeue();
+    // }
+    Event timeEvent = eventList.peekFront();
+    currentTime = timeEvent.getArrivalTime();
     std::cout << "Simulation Begins" << std::endl;
     while (!eventList.isEmpty()) {
         Event newEvent = eventList.peekFront();
@@ -83,7 +113,7 @@ void BankSim::test() {
             processDeparture(newEvent);
         }
     }
-    std::cout << "Simulation Ends\n" << std::endl;
+    std::cout << "Simulation ends." << '\n' << std::endl;
 
     totalWaitingTime = (totalDeparture - totalTransaction - totalArrival)/totalCustomers;
     std::cout << "Final Statistics:" << std::endl;

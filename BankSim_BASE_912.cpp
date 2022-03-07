@@ -37,17 +37,21 @@ void BankSim::loadData() {
 }
 
 void BankSim::processArrival(Event arrivalEvent) {
+    Event newEvent = eventList.peekFront();
+    Event customerEvent = newEvent;
+    
+    // customer = customer referenced in arrivalEvent
     if (bankQueue.isEmpty() && tellerFree) {
         int departureTime = currentTime + arrivalEvent.getTransactionTime();
         Event newDepartureEvent(departureTime);
         eventList.enqueue(newDepartureEvent);
         tellerFree = false;
     } else{
-        bankQueue.enqueue(arrivalEvent);
+        bankQueue.enqueue(customerEvent); // enqueue customer
     }
-    std::cout << "Processing arrival event at time: " << currentTime << std::endl;
-    totalArrival += arrivalEvent.getArrivalTime();
-    totalTransaction += arrivalEvent.getTransactionTime();
+    //std::cout << "Processing arrival event at time: " << currentTime << std::endl;
+    totalArrival += newEvent.getArrivalTime();
+    totalTransaction += newEvent.getTransactionTime();
     eventList.dequeue();
     totalCustomers++;
 }
@@ -65,28 +69,52 @@ void BankSim::processDeparture(Event departureEvent) {
     } else {
         tellerFree  = true;
     }
-    std::cout << "Processing departure event at time: " << currentTime << std::endl;
+    //std::cout << "Processing departure event at time: " << currentTime << std::endl;
     totalDeparture += currentTime;
 }
 
 void BankSim::test() {
+    // Event test1(9);
+    // Event test2(15);
+    // for (int i = 0; i < 8; i++) {
+    //     Event test3(0);
+    //     eventList.testenqueue(test3);
+    // }
+
+    // loadData();
+    // eventList.enqueue(test2);
+    // eventList.enqueue(test1);
     loadData();
 
-    std::cout << "Simulation Begins" << std::endl;
+    std::cout << "EVENT COUNT: " << eventList.getItemCount() << std::endl;
+
+    // Print PQueue elements
+    // while (eventList.peekFront().isArrivalEvent()) {
+    //     std::cout << eventList.peekFront() << std::endl;
+    //     eventList.dequeue();
+    // }
+    // std::cout << "div" << std::endl;
+    // while (!eventList.isEmpty()) {
+    //     std::cout << eventList.peekFront() << std::endl;
+    //     eventList.dequeue();
+    // }
+    Event timeEvent = eventList.peekFront();
+    currentTime = timeEvent.getArrivalTime();
+    std::cout << "Simulation Begins Processing an arrival event at time: " << (currentTime = timeEvent.getArrivalTime()) << std::endl;
     while (!eventList.isEmpty()) {
         Event newEvent = eventList.peekFront();
         currentTime = newEvent.getArrivalTime();
-        // std::cout << currentTime << "\t" << eventList << "\n" << std::endl;
+        std::cout << currentTime << "\t" << eventList << "\n" << std::endl;
         if (newEvent.isArrivalEvent()) {
             processArrival(newEvent);
         } else {
             processDeparture(newEvent);
         }
     }
-    std::cout << "Simulation Ends\n" << std::endl;
 
     totalWaitingTime = (totalDeparture - totalTransaction - totalArrival)/totalCustomers;
     std::cout << "Final Statistics:" << std::endl;
     std::cout << "\tTotal number of people processed: " << totalCustomers << std::endl;
     std::cout << "\tAverage amount of time spent waiting: " << totalWaitingTime << std::endl;
+    std::cout << "Simulation ends." << std::endl;
 }
